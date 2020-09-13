@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/wailsapp/wails/v2/internal/binding"
-	"github.com/wailsapp/wails/v2/internal/features"
 	"github.com/wailsapp/wails/v2/internal/ffenestri"
 	"github.com/wailsapp/wails/v2/internal/logger"
 	"github.com/wailsapp/wails/v2/internal/messagedispatcher"
@@ -32,9 +31,6 @@ type App struct {
 
 	// This is our binding DB
 	bindings *binding.Bindings
-
-	// Feature flags
-	Features *features.Features
 }
 
 // Create App
@@ -69,7 +65,6 @@ func CreateApp(options *Options) *App {
 		servicebus: servicebus.New(myLogger),
 		logger:     myLogger,
 		bindings:   binding.NewBindings(myLogger),
-		Features:   features.New(),
 	}
 
 	return result
@@ -145,7 +140,7 @@ func (a *App) Run() error {
 		return err
 	}
 
-	result := a.window.Run(dispatcher, bindingDump, a.Features)
+	result := a.window.Run(dispatcher, bindingDump)
 	a.logger.Trace("Ffenestri.Run() exited")
 	a.servicebus.Stop()
 

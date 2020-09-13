@@ -9,8 +9,6 @@ package app
 
 import (
 	"os"
-
-	"github.com/wailsapp/wails/v2/internal/features"
 )
 
 // App defines a Wails application structure
@@ -19,8 +17,6 @@ type App struct {
 	Width     int
 	Height    int
 	Resizable bool
-
-	Features *features.Features
 }
 
 // CreateApp returns a null application
